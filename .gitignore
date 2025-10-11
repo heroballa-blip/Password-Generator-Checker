@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# PyInstaller builds (if you package it later)
+build/
+dist/
+*.spec
+
+# macOS
+.DS_Store
+
+# IDE / Editor
+.vscode/
+.idea/
