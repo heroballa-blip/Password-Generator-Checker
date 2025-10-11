@@ -8,7 +8,6 @@ import os
 class PasswordGeneratorApp(QWidget):
     def __init__(self):
         super().__init__()
-        icon_path = os.path.join(os.path.dirname(__file__), "icon.ico")
         
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.activateWindow()
