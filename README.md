@@ -113,17 +113,6 @@ python cli/main_cli.py
 - [ ] Connect CLI - GUI - WEB to a encrypted Postgresql database
 - [ ] Implement a Master Password with 2FA system to enhance database protection
 - [ ] Provide User option to add multiple vaults within database and implement Master Password protection to each vault within
----
-
-## Contributing
-
-Contributions are welcome!
-If you'd like to contribute:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -m 'Add new feature'`).
-4. Push to your branch (`git push origin feature-name`).
-5. Open a Pull Request.
 
 ---
 
