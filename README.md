@@ -96,10 +96,13 @@ python cli/main_cli.py
 
 ## Dependencies
 
-- Python 3.9+
-- PyQt5
-- cryptography
-- Rest of the dependencies are listed in `requirements.txt`
+- bcrypt==5.0.0
+- cffi==2.0.0
+- cryptography==46.0.2
+- pycparser==2.23
+- PyQt5==5.15.11
+- PyQt5-Qt5==5.15.17
+- PyQt5_sip==12.17.1
 
 ---
 
