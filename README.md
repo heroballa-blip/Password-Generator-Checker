@@ -24,10 +24,14 @@ Password-Generator-Checker/
 │
 ├── cli/
 │   ├── cli_utils.py
+│   ├── crypto_utils.py
+│   ├── db_main.py
+│   ├── logging_utils.py
 │   ├── main_cli.py
-│   ├── password_checker.py
-│   └── password_generator.py
-│
+|   ├── password_checker.py
+|   ├── password_generator.py
+|   └── vault_actions.py
+|
 ├── gui/
 │   ├── tabs/
 │   │   ├── indevelopment_tab.py
