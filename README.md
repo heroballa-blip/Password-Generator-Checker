@@ -106,6 +106,7 @@ python cli/main_cli.py
 - PyQt5_sip==12.17.1
 
 ---
+
 ## Future Plans for Project
 
 - Integrate QRNG for enhanced randomness
