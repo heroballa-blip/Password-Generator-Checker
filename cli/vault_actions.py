@@ -1,6 +1,5 @@
 import getpass
 from logging_utils import log_edit, log_access
-from vault_display import display_vault
 from crypto_utils import derive_key
 from cryptography.fernet import Fernet, InvalidToken
 
@@ -203,3 +202,28 @@ def delete_vault(cur, conn, username):
     conn.commit()
     print(f"Vault '{vault_name}' has been deleted.")
     log_access(username, "DELETE VAULT", vault_name)
+
+# Function to display vault contents
+def display_vault(cur, vault_name, cipher, allow_decrypt=True):
+    cur.execute(f"SELECT service, username, password FROM {vault_name};")
+    rows = cur.fetchall()
+
+    col_no = 4
+    col_service = 20
+    col_username = 20
+    col_password = 30
+
+    print(f"\n{'No.'.ljust(col_no)} | {'Service'.ljust(col_service)} | {'Username'.ljust(col_username)} | {'Password'.ljust(col_password)}")
+    print("-" * (col_no + col_service + col_username + col_password + 9))
+
+    for idx, (s, u, p) in enumerate(rows, start=1):
+        if allow_decrypt:
+            try:
+                decrypted_pw = cipher.decrypt(p.encode()).decode()
+                pw_display = decrypted_pw
+            except Exception:
+                pw_display = "Cannot decrypt"
+        else:
+            pw_display = "Cannot decrypt"
+
+        print(f"{str(idx).ljust(col_no)} | {s.ljust(col_service)} | {u.ljust(col_username)} | {pw_display.ljust(col_password)}")

@@ -51,7 +51,7 @@ Password-Generator-Checker/
 - Python (3.9+)
 - PyQt5 for GUI
 - Cryptography library for security features
-- PostgreSQL (planned)
+- pscopg2 for PostgreSQL implementation(currently on CLI)
 - QRNG (planned integration)
 
 ## Features
@@ -61,6 +61,9 @@ Password-Generator-Checker/
 - Optional dictionary check to avoid weak words (penalizes password for each word used)
 - Clean and simple GUI built with PyQt5
 - Fast and lightweight
+- Add Password Database using Postgresql & apply basic encryption logic
+- Provide User option to add multiple vaults within database 
+- Implement Master Password protection to each vault within
 
 ---
 
@@ -97,25 +100,26 @@ python cli/main_cli.py
 ## Dependencies
 
 - bcrypt==5.0.0
-- cffi==2.0.0
 - cryptography==46.0.2
-- pycparser==2.23
 - PyQt5==5.15.11
 - PyQt5-Qt5==5.15.17
 - PyQt5_sip==12.17.1
 
 ---
+## Existing Security vulnerabilties
+- SHA-256 doesn't use salting techinque, more vulnerable to brute force attacks
+- 
 
+---
 ## Future Plans for Project
 
-- [ ] Add Password Database using Postgresql & apply basic encryption logic
-- [ ] Integrate QRNG for enhanced randomness
-- [ ] Export generated passwords to a encrypted text file
-- [ ] Improve UI design and add dark mode
-- [ ] Implement a web version of this project
-- [ ] Connect CLI - GUI - WEB to a encrypted Postgresql database
-- [ ] Implement a Master Password with 2FA system to enhance database protection
-- [ ] Provide User option to add multiple vaults within database and implement Master Password protection to each vault within
+- Integrate QRNG for enhanced randomness
+- Implement a feature to export generated passwords to a encrypted text file
+- Improve UI design and add dark mode
+- Implement a web version of this project
+- Connect CLI - GUI - WEB to a encrypted Postgresql database
+- Implement a Master Password with 2FA system to enhance database protection
+- Update crypto_utils file to use Argon2, and replace existing Hashing algorithm
 
 ---
 

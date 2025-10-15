@@ -1,8 +1,7 @@
 import psycopg2
 import getpass
 from cryptography.fernet import Fernet, InvalidToken
-from vault_display import display_vault
-from vault_actions import insert_password, update_password, delete_password, create_vault, delete_vault
+from vault_actions import insert_password, update_password, delete_password, create_vault, delete_vault, display_vault
 from logging_utils import log_access
 from crypto_utils import derive_key
 
