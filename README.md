@@ -1,7 +1,8 @@
-# Password Generator & Strength Checker
+# Password Manager Tools
 
-A simple yet powerful password generator and strength checker built with **Python** and **PyQt5**.
-This project allows users to generate secure passwords, check their strength, and optionally validate them against a custom password dictionary.
+A simple password password manager tool that uses a password generator and checker built with **Python** and **PyQt5**.
+The Password manager is built with **python** and a few **sql** statements here and there and connects to databases via **postgresql**.
+This project allows users to generate secure passwords, check their strength, and check them with a password dictionary.
 
 ## Project Goal
 

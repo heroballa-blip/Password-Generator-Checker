@@ -4,17 +4,15 @@ from password_generator import prompt_length, exclude_special_char, generate_pas
 from password_checker import checker, calculate_entropy, strength_rating
 from cli_utils import prompt, CancelOperation, QuitProgram
 
-
 import db_main as db_main
 from vault_actions import insert_password, create_vault
 
 
-# Helps to save a generated or checked password to a vault
 def save_to_vault_option(username, conn, cur, password):
     """
-    Saves a password to an existing vault (caller already confirmed 'y').
+    Saves a password to an existing vault, using Argon2 + stored salt to derive the encryption key.
     """
-    # List vaults in current DB
+    # --- List existing vaults ---
     cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
     tables = [t[0] for t in cur.fetchall()]
     if not tables:
@@ -41,15 +39,31 @@ def save_to_vault_option(username, conn, cur, password):
             print("Vault name not found.")
             return
 
-    # Vault decryption password
+    # --- Ask for vault password ---
     vault_password = getpass.getpass("Enter vault decryption password: ")
-    vault_key = db_main.derive_key(vault_password)
+
+    # --- Retrieve stored salt ---
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS vault_salts (
+            vault_name TEXT PRIMARY KEY,
+            salt BYTEA NOT NULL
+        );
+    """)
+    cur.execute("SELECT salt FROM vault_salts WHERE vault_name = %s;", (vault_name,))
+    row = cur.fetchone()
+
+    if not row:
+        print("❌ No salt found for this vault. It may be corrupted or was created with an older version.")
+        return
+
+    salt = row[0]
+    vault_key, _ = db_main.derive_key(vault_password, salt)
     cipher = Fernet(vault_key)
 
+    # --- Save password ---
     insert_password(cur, conn, username, vault_name, cipher, password)
 
 
-# Main CLI menu for password tools and vault access
 def password_tools_menu():
     """
     Main CLI menu for password tools and vault access.
@@ -67,8 +81,8 @@ def password_tools_menu():
             print("Exiting Tool")
             return
 
+        # --- Password Generator ---
         if menu == "1":
-            # Password Generator
             while True:
                 try:
                     length = prompt_length()
@@ -86,12 +100,10 @@ def password_tools_menu():
                         username, conn, cur = db_main.login()
                         if username:
                             save_to_vault_option(username, conn, cur, pwd)
-                            # Close connection after finished saving
                             if cur:
                                 cur.close()
                             if conn:
                                 conn.close()
-
 
                     again = prompt("Generate another password? (y/n): ").lower()
                     if again != "y":
@@ -99,11 +111,11 @@ def password_tools_menu():
                 except (CancelOperation, QuitProgram):
                     return
 
+        # --- Password Checker ---
         elif menu == "2":
-    # Password Checker
             while True:
                 try:
-                    pwd_to_check = checker()  # get the password from checker
+                    pwd_to_check = checker()
                     save_now = prompt("Do you want to save this password to a vault? (y/n): ").lower()
                     if save_now == "y":
                         username, conn, cur = db_main.login()
@@ -120,14 +132,13 @@ def password_tools_menu():
                 except (CancelOperation, QuitProgram):
                     return
 
+        # --- Vault Menu ---
         elif menu == "3":
-            # Launch Vault (PostgreSQL) menu
             db_main.main()
 
         else:
             print("Unknown option — please choose 1, 2, 3 or (x/q) to exit.")
 
 
-# Execute the main menu
 if __name__ == "__main__":
     password_tools_menu()

@@ -59,8 +59,29 @@ def view_vault(username, cur, conn):
             print("Vault name not found.")
             return
 
+    # --- Argon2 Key Derivation ---
     vault_password = getpass.getpass("Enter vault decryption password: ")
-    vault_key = derive_key(vault_password)
+
+    # Load or generate salt for this vault
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS vault_salts (
+            vault_name TEXT PRIMARY KEY,
+            salt BYTEA NOT NULL
+        );
+    """)
+
+    cur.execute("SELECT salt FROM vault_salts WHERE vault_name = %s;", (vault_name,))
+    row = cur.fetchone()
+
+    if row:
+        salt = row[0]
+    else:
+        # generate and store salt if this is first access
+        _, salt = derive_key(vault_password)
+        cur.execute("INSERT INTO vault_salts (vault_name, salt) VALUES (%s, %s);", (vault_name, salt))
+        conn.commit()
+
+    vault_key, _ = derive_key(vault_password, salt)
     cipher = Fernet(vault_key)
 
     try:
