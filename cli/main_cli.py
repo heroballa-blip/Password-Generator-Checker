@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 from password_generator import prompt_length, exclude_special_char, generate_password
 from password_checker import checker, calculate_entropy, strength_rating
 from cli_utils import prompt, CancelOperation, QuitProgram
-
+import pyperclip
 import db_main as db_main
 from vault_actions import insert_password, create_vault
 
@@ -53,7 +53,7 @@ def save_to_vault_option(username, conn, cur, password):
     row = cur.fetchone()
 
     if not row:
-        print("❌ No salt found for this vault. It may be corrupted or was created with an older version.")
+        print("No salt found for this vault. It may be corrupted or was created with an older version.")
         return
 
     salt = row[0]
@@ -89,7 +89,8 @@ def password_tools_menu():
                     exclude = exclude_special_char()
                     pwd = generate_password(length, exclude)
                     entropy = calculate_entropy(length, exclude)
-                    print(f"\nGenerated Password: {pwd}")
+                    pyperclip.copy(pwd)
+                    print("\nPassword copied to clipboard.")
                     print(f"Entropy: {entropy} bits")
                     print(f"Strength: {strength_rating(entropy)}")
                     print("-" * 40)
