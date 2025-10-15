@@ -1,0 +1,1 @@
+2025-10-15 03:21:35,808 | INFO | hballa | test | test | INSERT

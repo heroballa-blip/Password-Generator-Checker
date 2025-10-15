@@ -1,15 +1,14 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QPushButton, QStackedWidget
 from tabs.password_tab import PasswordGeneratorTab
 from tabs.indevelopment_tab import InDevelopment
-from PyQt5 import QtCore
+from PyQt5.QTCore import Qt
 from PyQt5.QtGui import QIcon
-import os
 
 class PasswordGeneratorApp(QWidget):
     def __init__(self):
         super().__init__()
         
-        self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         self.activateWindow()
         self.raise_()
         

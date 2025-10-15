@@ -75,3 +75,5 @@ def checker():
     print(f"Base Entropy: {base_entropy} bits")
     print(f"Adjusted Entropy: {adjusted_entropy} bits")
     print(f"Strength: {strength_rating(adjusted_entropy)}")
+
+    return password  # <- important for saving to vault
