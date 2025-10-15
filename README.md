@@ -63,7 +63,7 @@ Password-Generator-Checker/
 - Fast and lightweight
 - Add Password Database using Postgresql & apply basic encryption logic
 - Provide User option to add multiple vaults within database 
-- Implement Master Password protection to each vault within
+- Uses Master Password protection to each vault within
 
 ---
 
@@ -106,11 +106,6 @@ python cli/main_cli.py
 - PyQt5_sip==12.17.1
 
 ---
-## Existing Security vulnerabilties
-- SHA-256 doesn't use salting techinque, more vulnerable to brute force attacks
-- 
-
----
 ## Future Plans for Project
 
 - Integrate QRNG for enhanced randomness
@@ -119,7 +114,7 @@ python cli/main_cli.py
 - Implement a web version of this project
 - Connect CLI - GUI - WEB to a encrypted Postgresql database
 - Implement a Master Password with 2FA system to enhance database protection
-- Update crypto_utils file to use Argon2, and replace existing Hashing algorithm
+- Update crypto_utils file to use Argon2 (modern standard), and replace outdated Hashing algorithm (SHA-256)
 
 ---
 
