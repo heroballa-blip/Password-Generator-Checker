@@ -67,7 +67,7 @@ Password-Generator-Checker/
 
 ---
 
-## Installation
+## Installation Instructions
 
 ```bash
 git clone https://github.com/heroballa-blip/Password-Generator-Checker.git
