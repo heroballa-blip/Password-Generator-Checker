@@ -76,19 +76,19 @@ Password-Generator-Checker/
 ## Installation Instructions
 ---
 
-## 🛠️ Installation Guide
+## Installation Guide
 
-### 1. 📋 Prerequisites
+### 1. Prerequisites
 
 Before you install the project, make sure you have:
 
-- 🐍 **Python 3.10+**
-- 🐘 **PostgreSQL** installed and running
+- **Python 3.10+**
+- **PostgreSQL** installed and running
 - A PostgreSQL user and database set up
 
 ---
 
-### 2. 🐘 Install PostgreSQL
+### 2. Install PostgreSQL
 
 #### macOS
 ```bash
@@ -110,7 +110,7 @@ Make sure `psql` is added to your PATH during installation.
 
 ---
 
-### 3. 🧰 Database Setup
+### 3. Database Setup
 
 Once PostgreSQL is installed, create a database and user:
 
@@ -125,7 +125,7 @@ GRANT ALL PRIVILEGES ON DATABASE vault_db TO vault_user;
 \q
 ```
 
-> 📝 **Note:** You can customize the database name, user, and password — just make sure to update your config or `.env` accordingly.
+> **Note:** You can customize the database name, user, and password — just make sure to update your config or `.env` accordingly.
 
 ---
 
